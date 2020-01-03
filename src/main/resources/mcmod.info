@@ -1,0 +1,16 @@
+[
+{
+  "modid": "contentcreator",
+  "name": "ContentCreator",
+  "description": "Example placeholder mod.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Timardo"],
+  "credits": "Micheal Bay",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
