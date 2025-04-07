@@ -1,3 +1,5 @@
+# This is an archived project.
+
 # ContentCreator
 
 I just didn't find any mod that allows you to dynamically create your very own addons (some would say plugins) to minecraft
@@ -18,6 +20,6 @@ Check out the [wiki](https://github.com/Timardo/ContentCreator/wiki)!
 
 ## How to load an addon
 
-Currently there is only one way. . Put an addon to folder `config/contentcreator/addons` and type command `/load <full_name_of_file>`. Don't forget the extension! Example: `/load My-Addon.jar`
+Currently there is only one way. Put an addon to folder `config/contentcreator/addons` and type command `/load <full_name_of_file>`. Don't forget the extension! Example: `/load My-Addon.jar`
 
 more to come..

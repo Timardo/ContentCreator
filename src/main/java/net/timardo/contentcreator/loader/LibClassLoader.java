@@ -41,7 +41,7 @@ public class LibClassLoader extends URLClassLoader {
             }
             
             catch (ClassCastException cce) {
-                ContentCreator.logger.warn("Main class '" + mainClass + "' in lib '" + libFile.getName() + "' does not implement required IContentAddon class!");
+                ContentCreator.logger.warn("Main class '" + mainClass + "' in lib '" + libFile.getName() + "' doesn't implement required IContentAddon class!");
             }
             
             catch (InstantiationException ie) {
@@ -57,7 +57,7 @@ public class LibClassLoader extends URLClassLoader {
             }
             
             catch (Exception e) {
-                ContentCreator.logger.warn("Unknow exception has been caught while loading '\" + libFile.getName() + \"'. More info: " + ExceptionUtils.getStackTrace(e));
+                ContentCreator.logger.warn("Unknow exception has been caught while loading '" + libFile.getName() + "'. More info: " + ExceptionUtils.getStackTrace(e));
                 throw new AddonLoadingException("Unknow exception has been caught while loading '" + libFile.getName() + "'. More info in console");
             }
             

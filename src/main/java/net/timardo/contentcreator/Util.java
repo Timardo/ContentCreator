@@ -8,10 +8,16 @@ import java.nio.charset.StandardCharsets;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
+import javax.annotation.Nullable;
+
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import net.minecraft.command.ICommandSender;
+import net.minecraftforge.common.capabilities.ICapabilitySerializable;
+import net.timardo.contentcreator.capabilities.CapabilityWrapperProvider;
+import net.timardo.contentcreator.capabilities.ICapabilityWrapper;
+import net.timardo.contentcreator.capabilities.IExtendedCapability;
 import net.timardo.contentcreator.loader.AddonLoadingException;
 
 public class Util {
@@ -19,16 +25,23 @@ public class Util {
     public static File configDir;
     public static File contentLibsDir;
 
-    public static String getJarDir()
-    {
+    public static String getJarDir() {
         return contentLibsDir.getAbsolutePath();
     }
+    
+    public static IExtendedCapability getCapByID(ICapabilitySerializable<?> source, String ID) {
+        return getCapabilityWrapper(source).getExtendedCapabilityByID(ID);
+    }
+    
+    public static ICapabilityWrapper getCapabilityWrapper(ICapabilitySerializable<?> source) {
+        return source.getCapability(CapabilityWrapperProvider.WRAPPER, null);
+    }
 
-    public static void loadAddon(String file, ICommandSender sender, ClassLoader cl) throws AddonLoadingException {
+    public static void loadAddon(String file, @Nullable ICommandSender sender, ClassLoader cl) throws AddonLoadingException {
         File actualFile = new File(Util.getJarDir() + "/" + file);
         
         if (!actualFile.exists())
-            throw new AddonLoadingException("File '" + actualFile.getAbsolutePath() + "' doesn't exist, aborting!");
+            throw new AddonLoadingException("File '" + actualFile.getAbsolutePath() + "' doesn't exist aborting loading!");
         
         JarFile jar = null;
         InputStream inputStream = null;
@@ -45,14 +58,10 @@ public class Util {
             inputStream = jar.getInputStream(entry);
             mainClass = IOUtils.toString(inputStream, StandardCharsets.UTF_8.name());
 
-        }
-        
-        catch (IOException ex) {
+        } catch (IOException ex) {
             ContentCreator.logger.warn("Could not load main class from main.cl file in '" + actualFile.getName() + "'\n More info: " + ExceptionUtils.getStackTrace(ex));
             throw new AddonLoadingException("Could not load main class from main.cl file in '" + actualFile.getName() + "'\n More info in console");
-        }
-        
-        finally {
+        } finally {
             if (jar != null) {
                 try {
                     jar.close();
@@ -82,7 +91,5 @@ public class Util {
             ContentCreator.logger.warn("File path provided '" + actualFile.getAbsolutePath() + "' threw an exception (MalformedURLException)\n More info: " + ExceptionUtils.getStackTrace(mue));
             throw new AddonLoadingException("File path provided threw an exception (MalformedURLException). More info in console.");
         }
-        
     }
-    
 }

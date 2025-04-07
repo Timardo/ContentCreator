@@ -31,7 +31,7 @@ public class LoadCommand implements ICommand {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return "/loadfile <file_name>";
+        return "/loadfile <file name>";
     }
 
     @Override
@@ -45,13 +45,13 @@ public class LoadCommand implements ICommand {
             sender.sendMessage(new TextComponentString("Correct usage: " + getUsage(sender)));
             return;
         }
-            
+        
         try {
             Util.loadAddon(args[0], sender, getClass().getClassLoader());
         }
         
-        catch (AddonLoadingException ade) {
-            throw new CommandException(ade.message);
+        catch (AddonLoadingException ale) {
+            throw new CommandException(ale.message);
         }
     }
 
